@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNotEquals;
  * @author valdo
  */
 @RunWith(JUnit4.class)
-public class BankingTest01 {
+public class Banking01Test {
     
     @Test
     public void bankTest() {

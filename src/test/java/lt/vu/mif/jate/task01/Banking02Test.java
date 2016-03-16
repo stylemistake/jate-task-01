@@ -18,7 +18,7 @@ import lt.vu.mif.jate.task01.bank.exception.BankNotFoundException;
  * @author valdo
  */
 @RunWith(JUnit4.class)
-public class BankingTest02 {
+public class Banking02Test {
 
     @Test
     public void bankingBankTest() {

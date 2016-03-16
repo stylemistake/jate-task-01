@@ -23,7 +23,7 @@ import lt.vu.mif.jate.task01.bank.Banking;
  * @author valdo
  */
 @RunWith(JUnit4.class)
-public class BankingTest04 implements BankingTestIf {
+public class Banking04Test implements BankingTestIf {
         
     private final Banking banking = Banking.getInstance();
 

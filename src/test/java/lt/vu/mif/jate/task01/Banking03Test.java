@@ -36,7 +36,7 @@ import static org.junit.Assert.assertNotEquals;
  * @author valdo
  */
 @RunWith(JUnit4.class)
-public class BankingTest03 {
+public class Banking03Test {
     
     /**
      * Banking class should construct Account instances based on provided
