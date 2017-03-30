@@ -7,8 +7,14 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Scanner;
 
+/**
+ * Utility class.
+ */
 final class Util {
 
+    /**
+     * Placeholder.
+     */
     private Util() { }
 
     /**
@@ -24,8 +30,7 @@ final class Util {
                 lines.add(scanner.nextLine());
             }
             scanner.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return lines;
@@ -38,7 +43,7 @@ final class Util {
      * @return List of strings
      */
     static ArrayList<String[]> readResourceFileCSV(final String path,
-                                                   final String sep) {
+            final String sep) {
         ArrayList<String[]> result = new ArrayList<>();
         ArrayList<String> lines = readResourceFile(path);
         for (String line: lines) {

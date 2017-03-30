@@ -6,8 +6,16 @@ import lt.vu.mif.jate.task01.bank.exception.IBANException;
 import java.math.BigDecimal;
 import java.util.Currency;
 
+/**
+ * Savings account.
+ */
 public class SavingsAccount extends Account {
 
+    /**
+     * Constructor.
+     * @param iban IBAN string
+     * @throws IBANException IBAN parsing error
+     */
     SavingsAccount(final String iban) throws IBANException {
         super(iban);
     }

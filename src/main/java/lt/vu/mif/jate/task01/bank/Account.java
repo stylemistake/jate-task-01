@@ -18,7 +18,7 @@ import java.util.Map;
 public abstract class Account {
 
     /**
-     * Iban object.
+     * IBAN object.
      */
     private IBAN iban;
 
@@ -29,80 +29,146 @@ public abstract class Account {
     private Bank bank;
 
     /**
-     * Currency to balance map.
+     * Map of currency to balance.
      */
     private Map<Currency, BigDecimal> balances = new HashMap<>();
 
     /**
      * Constructor, that takes IBAN as a string.
-     * @param iban IBAN string
+     * @param x IBAN string
      * @throws IBANException Malformed IBAN string
      */
-    protected Account(final String iban) throws IBANException {
-        this(IBANParser.parse(iban));
+    protected Account(final String x) throws IBANException {
+        this(IBANParser.parse(x));
     }
 
     /**
      * Constructor, that takes the IBAN object.
-     * @param iban IBAN object
+     * @param x IBAN object
      */
-    private Account(final IBAN iban) {
-        this.iban = iban;
+    private Account(final IBAN x) {
+        this.iban = x;
         this.bank = Banking.getInstance()
             .getBankOrCreate(iban.getCountry(), iban.getBankCode());
     }
 
+    /**
+     * Get account number.
+     * @return Account number
+     */
     public final BigInteger getNumber() {
         return iban.getAccountNumber();
     }
 
+    /**
+     * Credit an account.
+     * @param amount Amount
+     * @param currency Currency code
+     */
     public final void credit(final BigDecimal amount, final String currency) {
         credit(amount, Currency.getInstance(currency));
     }
 
+    /**
+     * Credit an account.
+     * @param amount Amount
+     * @param currency Currency object
+     */
     public abstract void credit(BigDecimal amount, Currency currency);
 
+    /**
+     * Debit an account.
+     * @param amount Amount
+     * @param currency Currency code
+     */
     public final void debit(final BigDecimal amount, final String currency) {
         debit(amount, Currency.getInstance(currency));
     }
 
+    /**
+     * Debit an account.
+     * @param amount Amount
+     * @param currency Currency object
+     */
     public abstract void debit(BigDecimal amount, Currency currency);
 
+    /**
+     * Transfer money to another account.
+     * @param amount Amount
+     * @param currency Currency code
+     * @param creditAccount Target account
+     */
     public final void debit(final BigDecimal amount, final String currency,
-                            final Account creditAccount) {
+            final Account creditAccount) {
         debit(amount, Currency.getInstance(currency), creditAccount);
     }
 
+    /**
+     * Transfer money to another account.
+     * @param amount Amount
+     * @param currency Currency object
+     * @param creditAccount Target account
+     */
     public abstract void debit(BigDecimal amount, Currency currency,
-                               Account creditAccount);
+            Account creditAccount);
 
+    /**
+     * Overrides the balance on account. Use with care.
+     * @param amount Amount
+     * @param currency Currency code
+     */
     protected final void setBalance(final BigDecimal amount,
-                                    final String currency) {
+            final String currency) {
         setBalance(amount, Currency.getInstance(currency));
     }
 
+    /**
+     * Overrides the balance on account. Use with care.
+     * @param amount Amount
+     * @param currency Currency object
+     */
     protected final void setBalance(final BigDecimal amount,
-                                    final Currency currency) {
+            final Currency currency) {
         if (balances.containsKey(currency)) {
             balances.remove(currency);
         }
         balances.put(currency, amount);
     }
 
+    /**
+     * Get account balance.
+     * @param currency Currency code
+     * @return Balance amount
+     */
     public final BigDecimal balance(final String currency) {
         return balance(Currency.getInstance(currency));
     }
 
+    /**
+     * Get account balance.
+     * @param currency Currency object
+     * @return Balance amount
+     */
     public final BigDecimal balance(final Currency currency) {
         return balances
             .getOrDefault(currency, BigDecimal.ZERO)
             .setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
+    /**
+     * Get account balance.
+     * @param currency Currency code
+     * @return Balance amount
+     */
     public final BigDecimal balanceAll(final String currency) {
         return balanceAll(Currency.getInstance(currency));
     }
 
+    /**
+     * Get account balance.
+     * @param currency Currency object
+     * @return Balance amount
+     */
     public final BigDecimal balanceAll(final Currency currency) {
         BigDecimal balance = BigDecimal.ZERO;
         Converter conv = Converter.getInstance();
@@ -114,9 +180,14 @@ public abstract class Account {
         return balance.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
+    /**
+     * Convert currencies on this account.
+     * @param amount Amount
+     * @param currencyFrom From currency
+     * @param currencyTo To currency
+     */
     public final void convert(final BigDecimal amount,
-                              final String currencyFrom,
-                              final String currencyTo) {
+            final String currencyFrom, final String currencyTo) {
         Converter conv = Converter.getInstance();
         BigDecimal balanceFrom = balance(currencyFrom);
         if (balanceFrom.compareTo(BigDecimal.ZERO) <= 0) {

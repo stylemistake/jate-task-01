@@ -5,45 +5,87 @@ import lombok.NonNull;
 
 import java.util.Locale;
 
+/**
+ * Bank class.
+ */
 public class Bank {
 
+    /**
+     * Bank Locale object, that holds information about the country.
+     */
     @Getter
     private Locale locale;
 
+    /**
+     * Bank code.
+     */
     @Getter
     private Integer code;
 
+    /**
+     * Bank BIC code.
+     */
     @Getter
     private String bicCode;
 
+    /**
+     * Bank name.
+     */
     @Getter
     private String name;
 
+    /**
+     * Bank address.
+     */
     @Getter
     private String address;
 
-    public Bank(final String country, final Integer code) {
-        this(country, code, null, null, null);
+    /**
+     * Shorthand bank constructor.
+     * @param a Bank country code
+     * @param b Bank code
+     */
+    public Bank(final String a, final Integer b) {
+        this(a, b, null, null, null);
     }
 
-    public Bank(final String country, final Integer code,
-                final String bicCode) {
-        this(country, code, bicCode, null, null);
+    /**
+     * Shorthand bank constructor.
+     * @param a Bank country code
+     * @param b Bank code
+     * @param c Bank BIC code
+     */
+    public Bank(final String a, final Integer b, final String c) {
+        this(a, b, c, null, null);
     }
 
-    public Bank(final String country, final Integer code,
-                final String bicCode, final String name) {
-        this(country, code, bicCode, name, null);
+    /**
+     * Shorthand bank constructor.
+     * @param a Bank country code
+     * @param b Bank code
+     * @param c Bank BIC code
+     * @param d Bank name
+     */
+    public Bank(final String a, final Integer b, final String c,
+            final String d) {
+        this(a, b, c, d, null);
     }
 
-    public Bank(@NonNull final String country, @NonNull final Integer code,
-                final String bicCode, final String name,
-                final String address) {
-        this.locale = new Locale(country, country);
-        this.code = code;
-        this.bicCode = bicCode;
-        this.name = name;
-        this.address = address;
+    /**
+     * Bank constructor.
+     * @param a Bank country code
+     * @param b Bank code
+     * @param c Bank BIC code
+     * @param d Bank name
+     * @param e Bank address
+     */
+    public Bank(@NonNull final String a, @NonNull final Integer b,
+            final String c, final String d, final String e) {
+        this.locale = new Locale(a, a);
+        this.code = b;
+        this.bicCode = c;
+        this.name = d;
+        this.address = e;
     }
 
     @Override

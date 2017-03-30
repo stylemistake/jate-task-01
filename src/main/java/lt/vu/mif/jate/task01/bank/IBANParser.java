@@ -7,12 +7,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
+/**
+ * IBAN Parser and IBAN object factory.
+ */
 final class IBANParser {
 
+    /**
+     * Placeholder.
+     */
     private IBANParser() { }
 
+    /**
+     * Map, which stores contents of iban.txt.
+     */
     private static HashMap<String, String> ibanRules;
 
+    /**
+     * Returns contents of ibanRules in lazy and cached manner.
+     * @return IBAN rules
+     */
     private static synchronized HashMap<String, String> getIBANRules() {
         if (ibanRules != null) {
             return ibanRules;
@@ -30,16 +43,33 @@ final class IBANParser {
         return ibanRules;
     }
 
+    /**
+     * Extracts a string by pattern matching against the IBAN rule.
+     * @param value String to extract from
+     * @param rule String with the pattern
+     * @param chr Character, denoting the pattern we need to get
+     * @return Pattern-matched string
+     */
     private static String extractStringAtChar(final String value,
-                                              final String rule,
-                                              final String chr) {
+            final String rule, final String chr) {
         return value.substring(rule.indexOf(chr), rule.lastIndexOf(chr) + 1);
     }
 
+    /**
+     * Normalizes the IBAN string (trims spaces and does uppercase).
+     * @param iban IBAN string
+     * @return Normalized string
+     */
     static String normalize(final String iban) {
         return iban.replace(" ", "").toUpperCase(Locale.ENGLISH);
     }
 
+    /**
+     * Parse an IBAN string to get an IBAN object.
+     * @param iban IBAN string
+     * @throws IBANException Country not found, wrong length or format
+     * @return IBAN object
+     */
     static IBAN parse(final String iban) throws IBANException {
         String normalized = normalize(iban);
         String country = normalized.substring(0, 2);

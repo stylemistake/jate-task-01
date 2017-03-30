@@ -2,18 +2,32 @@ package lt.vu.mif.jate.task01.bank.exception;
 
 import lombok.Getter;
 
+/**
+ * Bank not found.
+ */
 public class BankNotFoundException extends Exception {
 
+    /**
+     * Bank country.
+     */
     @Getter
     private String country;
 
+    /**
+     * Bank code.
+     */
     @Getter
     private Integer code;
 
-    public BankNotFoundException(final String country, final Integer code) {
-        super("Bank (" + country + "-" + code + ") was not found.");
-        this.country = country;
-        this.code = code;
+    /**
+     * Constructor.
+     * @param a Bank country
+     * @param b Bank code
+     */
+    public BankNotFoundException(final String a, final Integer b) {
+        super("Bank (" + a + "-" + b + ") was not found.");
+        this.country = a;
+        this.code = b;
     }
 
 }

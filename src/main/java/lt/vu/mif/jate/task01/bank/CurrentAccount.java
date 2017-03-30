@@ -6,8 +6,16 @@ import lt.vu.mif.jate.task01.bank.exception.NoFundsException;
 import java.math.BigDecimal;
 import java.util.Currency;
 
+/**
+ * Current account.
+ */
 public class CurrentAccount extends Account {
 
+    /**
+     * Constructor.
+     * @param iban IBAN string
+     * @throws IBANException IBAN parsing error
+     */
     CurrentAccount(final String iban) throws IBANException {
         super(iban);
     }

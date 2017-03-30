@@ -14,8 +14,16 @@ import java.util.Currency;
  */
 public class CreditAccount extends Account {
 
+    /**
+     * Flag, which restricts usage of "credit" function to only one time.
+     */
     private boolean creditedOnce = false;
 
+    /**
+     * Constructor.
+     * @param iban IBAN string
+     * @throws IBANException IBAN parsing error
+     */
     CreditAccount(final String iban) throws IBANException {
         super(iban);
     }
